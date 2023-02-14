@@ -21,6 +21,11 @@ public class Reigns {
     private static ArrayList<Question> questions;
 
     /**
+     * le nombre de tours
+     */
+    private static int nbTours = 0;
+
+    /**
      * La méthode main lance le jeu Reigns. Il initialise les questions, le personnage,
      * affiche les jauges du personnage et lance une boucle de jeu qui se termine lorsque le personnage perd.
      * Il affiche également le nombre de tours de jeu que le personnage a joué.
@@ -30,6 +35,21 @@ public class Reigns {
     public static void main(String[] args){
 
         // début du jeu
+        init();
+
+        // tirage des questions
+        while(!personnage.finDuJeu()){
+            tourDeJeu();
+        }
+
+        // fin du jeu
+        System.out.println(personnage.getNom() + " a perdu ! Son règne a duré " + nbTours + " tours");
+    }
+
+    /**
+     * Cette fonction permet d'initialiser une partie de jeu
+     */
+    private static void init() {
         System.out.println("Bienvenue sur Reigns");
 
         initBanqueQuestions();
@@ -38,27 +58,19 @@ public class Reigns {
 
         initPersonnage();
 
-        System.out.println(personnage.getGenre().longRegne()
-                +" "+personnage.getNom());
+        System.out.println(personnage.getGenre().longRegne() + " " + personnage.getNom());
 
         personnage.AfficheJauges();
+    }
 
-        // tirage des questions
-        int nbTours = 0;
-        while(!personnage.finDuJeu()){
-            nbTours++;
-            Question question = getQuestionAleatoire();
-            reponseQuestion(question);
-            personnage.AfficheJauges();
-        }
-
-        // fin du jeu
-        System.out.println(
-                personnage.getNom()
-                        + " a perdu ! Son règne a duré "
-                        +nbTours
-                        + " tours");
-
+    /**
+     * Cette fonction permet de lancer un tour de jeu
+     */
+    private static void tourDeJeu() {
+        nbTours++;
+        Question question = getQuestionAleatoire();
+        reponseQuestion(question);
+        personnage.AfficheJauges();
     }
 
     /**
@@ -78,9 +90,9 @@ public class Reigns {
             reponse = scanner.nextLine();
         }
         // applique les malus
-        if(reponse.equals("G")){
+        if (reponse.equals("G")) {
             question.appliqueEffetsGauche(personnage);
-        }else{
+        } else {
             question.appliqueEffetsDroite(personnage);
         }
     }
@@ -113,6 +125,7 @@ public class Reigns {
      */
     private static void initBanqueQuestions(){
         questions = new ArrayList<>();
+
         Question question1 = new Question(
                 "Main du roi",
                 "Le peuple souhaite libérer les prisonniers",
@@ -122,6 +135,7 @@ public class Reigns {
         question1.ajouteEffetGauche(TypeJauge.PEUPLE, +5);
         question1.ajouteEffetDroite(TypeJauge.PEUPLE, -7);
         questions.add(question1);
+
         Question question2 = new Question(
                 "Paysan",
                 "Il n'y a plus rien à manger",
@@ -131,6 +145,7 @@ public class Reigns {
         question2.ajouteEffetGauche(TypeJauge.PEUPLE, +5);
         question2.ajouteEffetDroite(TypeJauge.PEUPLE, -5);
         questions.add(question2);
+
         Question question3 = new Question(
                 "Prêtre",
                 "Les dieux sont en colère",
@@ -140,6 +155,7 @@ public class Reigns {
         question3.ajouteEffetGauche(TypeJauge.PEUPLE, -3);
         question3.ajouteEffetDroite(TypeJauge.CLERGE, -5);
         questions.add(question3);
+
         Question question4 = new Question(
                 "Main du roi",
                 "Le roi Baratheon rassemble son armée",
@@ -150,6 +166,7 @@ public class Reigns {
         question4.ajouteEffetGauche(TypeJauge.CLERGE, -3);
         question4.ajouteEffetDroite(TypeJauge.PEUPLE, +3);
         questions.add(question4);
+
         Question question5 = new Question(
                 "Paysan",
                 "Abondance de récoltes cette année",

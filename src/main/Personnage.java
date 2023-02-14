@@ -16,21 +16,9 @@ public class Personnage {
      */
     protected Genre genre;
     /**
-     * La jauge de Clergé
+     * Les jauges de Clergé, de Peuple, d'Armée et de Finances
      */
-    protected Jauge jaugeClerge;
-    /**
-     * La jauge de Peuple
-     */
-    protected Jauge jaugePeuple;
-    /**
-     * La jauge d'Armée
-     */
-    protected Jauge jaugeArmee;
-    /**
-     * La jauge de Finances
-     */
-    protected Jauge jaugeFinance;
+    protected Jauge jaugeClerge, jaugePeuple, jaugeArmee, jaugeFinance;
 
     /**
      * Crée un nouveau personnage avec le nom et le genre spécifiés,
@@ -67,7 +55,7 @@ public class Personnage {
      * @return true si le jeu est fini, false sinon
      */
     public boolean finDuJeu(){
-        if(jaugeClerge.getValeur()<=0
+        if (jaugeClerge.getValeur()<=0
                 || jaugeClerge.getValeur()>=50
                 || jaugePeuple.getValeur()<=0
                 || jaugePeuple.getValeur()>=50
@@ -76,7 +64,7 @@ public class Personnage {
                 || jaugeFinance.getValeur()<=0
                 || jaugeFinance.getValeur()>=50){
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -89,15 +77,18 @@ public class Personnage {
      */
     private void afficheJauge(Jauge jauge) {
         String resultat = "[";
+
         // valeur : ####
-        for(int i=0;i<jauge.getValeur();i++){
+        for(int i = 0; i < jauge.getValeur(); i++){
             resultat += "#";
         }
+
         // on complète avec ____
-        for(int i=0;i<50-(jauge.getValeur()>0?jauge.getValeur():0);i++){
+        for(int i = 0; i < 50 - (Math.max(jauge.getValeur(), 0)); i++){
             resultat += "_";
         }
         resultat += "] ";
+
         // affichage du nom
         resultat += jauge.getNom();
         System.out.println(resultat);
@@ -191,5 +182,4 @@ public class Personnage {
     public void setJaugeFinance(Jauge jaugeFinance) {
         this.jaugeFinance = jaugeFinance;
     }
-
 }

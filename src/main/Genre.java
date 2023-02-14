@@ -22,8 +22,7 @@ public enum Genre {
      * @return une chaîne de caractères indiquant "Long règne au roi" ou "Long règne à la reine"
      */
     public String longRegne(){
-        if(this==ROI)
-            return "Long règne au roi ";
+        if (this == ROI) return "Long règne au roi ";
         return "Long règne à la reine";
     }
 }
