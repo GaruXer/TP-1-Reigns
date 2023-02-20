@@ -10,6 +10,10 @@ public class Jauge {
         this.valeur = valeur;
     }
 
+    /**
+     * Getter et setter
+     */
+
     public String getNom() {
         return nom;
     }
@@ -32,5 +36,18 @@ public class Jauge {
 
     public void setType(TypeJauge type) {
         this.type = type;
+    }
+
+    /**
+     * Méthodes
+     */
+
+    @Override
+    public String toString() {
+        return "[" +
+                "#".repeat(Math.max(0, this.valeur)) +
+                "_".repeat(Math.max(0, 50 - (Math.max(this.valeur, 0)))) +
+                "] " +
+                this.getNom();
     }
 }

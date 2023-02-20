@@ -16,47 +16,9 @@ public class Personnage {
         jaugeFinance = new Jauge("Finances", 15 + (int)(Math.random() * (35 - 15)));
     }
 
-    public void AfficheJauges() {
-        afficheJauge(jaugeClerge);
-        afficheJauge(jaugePeuple);
-        afficheJauge(jaugeArmee);
-        afficheJauge(jaugeFinance);
-        System.out.println();
-    }
-
-    public boolean finDuJeu(){
-        if (jaugeClerge.getValeur()<=0
-                || jaugeClerge.getValeur()>=50
-                || jaugePeuple.getValeur()<=0
-                || jaugePeuple.getValeur()>=50
-                || jaugeArmee.getValeur()<=0
-                || jaugeArmee.getValeur()>=50
-                || jaugeFinance.getValeur()<=0
-                || jaugeFinance.getValeur()>=50){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void afficheJauge(Jauge jauge) {
-        String resultat = "[";
-
-        // valeur : ####
-        for(int i = 0; i < jauge.getValeur(); i++){
-            resultat += "#";
-        }
-
-        // on complète avec ____
-        for(int i = 0; i < 50 - (Math.max(jauge.getValeur(), 0)); i++){
-            resultat += "_";
-        }
-        resultat += "] ";
-
-        // affichage du nom
-        resultat += jauge.getNom();
-        System.out.println(resultat);
-    }
+    /**
+     * Getter et setter
+     */
 
     public String getNom() {
         return nom;
@@ -104,5 +66,32 @@ public class Personnage {
 
     public void setJaugeFinance(Jauge jaugeFinance) {
         this.jaugeFinance = jaugeFinance;
+    }
+
+    /**
+     * Méthodes
+     */
+
+    public void AfficheJauges() {
+        System.out.println(jaugeClerge);
+        System.out.println(jaugePeuple);
+        System.out.println(jaugeArmee);
+        System.out.println(jaugeFinance);
+        System.out.println();
+    }
+
+    public boolean finDuJeu(){
+        if (jaugeClerge.getValeur()<=0
+                || jaugeClerge.getValeur()>=50
+                || jaugePeuple.getValeur()<=0
+                || jaugePeuple.getValeur()>=50
+                || jaugeArmee.getValeur()<=0
+                || jaugeArmee.getValeur()>=50
+                || jaugeFinance.getValeur()<=0
+                || jaugeFinance.getValeur()>=50){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

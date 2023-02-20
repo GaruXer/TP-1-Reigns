@@ -6,92 +6,19 @@ import java.util.TreeMap;
 public class Question {
     protected String nomPersonnage;
     protected String question;
-    protected String effetGauche;
-    protected String effetDroite;
-    protected Map<TypeJauge, Integer> effetJaugeGauche;
-    protected Map<TypeJauge, Integer> effetJaugeDroite;
+    protected Effet effetGauche;
+    protected Effet effetDroite;
 
-    public Question(String nomPersonnage,
-                    String question,
-                    String effetGauche,
-                    String effetDroite) {
+    public Question(String nomPersonnage, String question, Effet effetGauche, Effet effetDroite) {
         this.nomPersonnage = nomPersonnage;
         this.question = question;
         this.effetGauche = effetGauche;
         this.effetDroite = effetDroite;
-        this.effetJaugeDroite = new TreeMap<>();
-        this.effetJaugeGauche = new TreeMap<>();
     }
 
-    public void afficheQuestion() {
-        String result = "["+nomPersonnage+"] "
-                + question
-                + "[G: "+effetGauche
-                + ",D: "+effetDroite
-                + "]";
-        System.out.println(result);
-        System.out.println("Effet G:"+afficheEffets(effetJaugeGauche));
-        System.out.println("Effet D:"+afficheEffets(effetJaugeDroite));
-        System.out.flush();
-    }
-
-    private String afficheEffets(Map<TypeJauge, Integer> effets) {
-        StringBuilder result = new StringBuilder();
-        for (Map.Entry<TypeJauge, Integer> effet : effets.entrySet()) {
-            result.append("; jauge ").append(effet.getKey()).append(":");
-            if (effet.getValue() > 0) {
-                result.append("+");
-            }
-            result.append(effet.getValue());
-        }
-        return result.toString();
-    }
-
-    public void appliqueEffetsGauche(Personnage personnage){
-        this.appliqueEffets(effetJaugeGauche, personnage);
-    }
-
-    public void appliqueEffetsDroite(Personnage personnage){
-        this.appliqueEffets(effetJaugeDroite, personnage);
-    }
-
-    private void appliqueEffets(Map<TypeJauge,Integer> effets,
-                                Personnage personnage){
-        for(Map.Entry<TypeJauge,Integer> effet : effets.entrySet()){
-            switch(effet.getKey()){
-                case ARMEE:
-                    personnage.getJaugeArmee().setValeur(
-                            personnage.getJaugeArmee().getValeur()
-                                    +effet.getValue());
-                    break;
-                case CLERGE:
-                    personnage.getJaugeClerge().setValeur(
-                            personnage.getJaugeClerge().getValeur()
-                                    +effet.getValue());
-                    break;
-                case FINANCE:
-                    personnage.getJaugeFinance().setValeur(
-                            personnage.getJaugeFinance().getValeur()
-                                    +effet.getValue());
-                    break;
-                case PEUPLE:
-                    personnage.getJaugePeuple().setValeur(
-                            personnage.getJaugePeuple().getValeur()
-                                    +effet.getValue());
-                    break;
-            }
-        }
-    }
-
-    public void ajouteEffetGauche(TypeJauge jauge,
-                                  int valeur){
-        effetJaugeGauche.put(jauge,valeur);
-    }
-
-    public void ajouteEffetDroite(TypeJauge jauge,
-                                  int valeur){
-        effetJaugeDroite.put(jauge,valeur);
-    }
+    /**
+     * Getter et setter
+     */
 
     public String getNomPersonnage() {
         return nomPersonnage;
@@ -109,20 +36,35 @@ public class Question {
         this.question = question;
     }
 
-    public String getEffetGauche() {
+    public Effet getEffetGauche() {
         return effetGauche;
     }
 
-    public void setEffetGauche(String effetGauche) {
+    public void setEffetGauche(Effet effetGauche) {
         this.effetGauche = effetGauche;
     }
 
-    public String getEffetDroite() {
+    public Effet getEffetDroite() {
         return effetDroite;
     }
 
-    public void setEffetDroite(String effetDroite) {
+    public void setEffetDroite(Effet effetDroite) {
         this.effetDroite = effetDroite;
     }
 
+    /**
+     * Méthodes
+     */
+
+    public void afficheQuestion() {
+        String result = "[" + nomPersonnage + "] "
+                + question
+                + "[G: " + effetGauche.effet
+                + ",D: " + effetDroite.effet
+                + "]";
+        System.out.println(result);
+        System.out.println("Effet G:" + effetGauche.afficheEffet());
+        System.out.println("Effet D:" + effetDroite.afficheEffet());
+        System.out.flush();
+    }
 }
