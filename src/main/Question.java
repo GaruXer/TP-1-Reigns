@@ -1,19 +1,15 @@
 package main;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 public class Question {
     protected String nomPersonnage;
     protected String question;
-    protected Effet effetGauche;
-    protected Effet effetDroite;
+    protected Effets effetsGauche, effetsDroite;
 
-    public Question(String nomPersonnage, String question, Effet effetGauche, Effet effetDroite) {
+    public Question(String nomPersonnage, String question, Effets effetsGauche, Effets effetsDroite) {
         this.nomPersonnage = nomPersonnage;
         this.question = question;
-        this.effetGauche = effetGauche;
-        this.effetDroite = effetDroite;
+        this.effetsGauche = effetsGauche;
+        this.effetsDroite = effetsDroite;
     }
 
     /**
@@ -36,20 +32,20 @@ public class Question {
         this.question = question;
     }
 
-    public Effet getEffetGauche() {
-        return effetGauche;
+    public Effets getEffetGauche() {
+        return effetsGauche;
     }
 
-    public void setEffetGauche(Effet effetGauche) {
-        this.effetGauche = effetGauche;
+    public void setEffetGauche(Effets effetsGauche) {
+        this.effetsGauche = effetsGauche;
     }
 
-    public Effet getEffetDroite() {
-        return effetDroite;
+    public Effets getEffetDroite() {
+        return effetsDroite;
     }
 
-    public void setEffetDroite(Effet effetDroite) {
-        this.effetDroite = effetDroite;
+    public void setEffetDroite(Effets effetsDroite) {
+        this.effetsDroite = effetsDroite;
     }
 
     /**
@@ -59,12 +55,12 @@ public class Question {
     public void afficheQuestion() {
         String result = "[" + nomPersonnage + "] "
                 + question
-                + "[G: " + effetGauche.effet
-                + ",D: " + effetDroite.effet
+                + " [G: " + effetsGauche.nom
+                + ", D: " + effetsDroite.nom
                 + "]";
         System.out.println(result);
-        System.out.println("Effet G:" + effetGauche.afficheEffet());
-        System.out.println("Effet D:" + effetDroite.afficheEffet());
+        System.out.println("Effet G: " + effetsGauche.afficheEffets());
+        System.out.println("Effet D: " + effetsDroite.afficheEffets());
         System.out.flush();
     }
 }

@@ -45,9 +45,9 @@ public class Jauge {
     @Override
     public String toString() {
         return "[" +
-                "#".repeat(Math.max(0, this.valeur)) +
-                "_".repeat(Math.max(0, 50 - (Math.max(this.valeur, 0)))) +
-                "] " +
-                this.getNom();
+            "#" . repeat(Math.max(0, this.valeur)) +
+            "_" . repeat(Math.max(0, 50 - (Math.max(this.valeur, 0)))) +
+            "] " +
+            this.getNom();
     }
 }
