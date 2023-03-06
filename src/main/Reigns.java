@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Reigns {
@@ -8,17 +9,13 @@ public class Reigns {
     private static ArrayList<Question> questions;
     private static int nbTours;
 
-    public static void main(String[] args){
-        // début du jeu
+    public static void main(String[] args) {
         initJeu();
 
         // tirage des questions
         while(!finDuJeu()){
             tourDeJeu();
         }
-
-        // fin du jeu
-        System.out.println(personnage.getNom() + " a perdu ! Son règne a duré " + nbTours + " tours");
     }
 
     /**
@@ -128,14 +125,15 @@ public class Reigns {
     }
 
     private static boolean finDuJeu() {
-        return personnage.jaugeClerge.getValeur() <= 0
-                || personnage.jaugeClerge.getValeur() >= 50
-                || personnage.jaugePeuple.getValeur() <= 0
-                || personnage.jaugePeuple.getValeur() >= 50
-                || personnage.jaugeArmee.getValeur() <= 0
-                || personnage.jaugeArmee.getValeur() >= 50
-                || personnage.jaugeFinance.getValeur() <= 0
-                || personnage.jaugeFinance.getValeur() >= 50;
+        for (Map.Entry<TypeJauge, Jauge> jauge : personnage.jauges.entrySet()) {
+            int value = jauge.getValue().getValeur();
+
+            if (value <= 0 || value >= 50) {
+                System.out.println(personnage.getNom() + " a perdu ! Son règne a duré " + nbTours + " tours");
+                return true;
+            }
+        }
+        return false;
     }
 
     private static Question getQuestionAleatoire() {

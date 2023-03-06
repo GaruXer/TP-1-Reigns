@@ -57,20 +57,8 @@ public class Effets {
 
     public void appliqueEffets(Personnage personnage){
         for (Map.Entry<TypeJauge, Integer> effet : this.effetsJauge.entrySet()) {
-            switch (effet.getKey()) {
-                case ARMEE -> personnage.getJaugeArmee().setValeur(
-                        personnage.getJaugeArmee().getValeur()
-                                + effet.getValue());
-                case CLERGE -> personnage.getJaugeClerge().setValeur(
-                        personnage.getJaugeClerge().getValeur()
-                                + effet.getValue());
-                case FINANCE -> personnage.getJaugeFinance().setValeur(
-                        personnage.getJaugeFinance().getValeur()
-                                + effet.getValue());
-                case PEUPLE -> personnage.getJaugePeuple().setValeur(
-                        personnage.getJaugePeuple().getValeur()
-                                + effet.getValue());
-            }
+            Jauge jauge = personnage.getJauges(effet.getKey());
+            jauge.setValeur(jauge.getValeur() + effet.getValue());
         }
     }
 }

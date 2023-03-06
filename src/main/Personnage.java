@@ -1,19 +1,23 @@
 package main;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Personnage {
     protected String nom;
     protected Genre genre;
-    protected Jauge jaugeClerge, jaugePeuple, jaugeArmee, jaugeFinance;
+    protected Map<TypeJauge, Jauge> jauges;
 
     public Personnage(String nom, Genre genre) {
         this.nom = nom;
         this.genre = genre;
 
         // Initialisation des jauges entre 15 et 35 points
-        jaugeClerge = new Jauge("Clergé", 15 + (int)(Math.random() * (35 - 15)));
-        jaugePeuple = new Jauge("Peuple", 15 + (int)(Math.random() * (35 - 15)));
-        jaugeArmee = new Jauge("Armée", 15 + (int)(Math.random() * (35 - 15)));
-        jaugeFinance = new Jauge("Finances", 15 + (int)(Math.random() * (35 - 15)));
+        jauges = new TreeMap<>();
+        jauges.put(TypeJauge.CLERGE, new Jauge("Clergé", 15 + (int)(Math.random() * (35 - 15))));
+        jauges.put(TypeJauge.PEUPLE, new Jauge("Peuple", 15 + (int)(Math.random() * (35 - 15))));
+        jauges.put(TypeJauge.ARMEE, new Jauge("Armée", 15 + (int)(Math.random() * (35 - 15))));
+        jauges.put(TypeJauge.FINANCE, new Jauge("Finance", 15 + (int)(Math.random() * (35 - 15))));
     }
 
     /**
@@ -36,36 +40,12 @@ public class Personnage {
         this.genre = genre;
     }
 
-    public Jauge getJaugeClerge() {
-        return jaugeClerge;
+    public Jauge getJauges(TypeJauge type) {
+        return jauges.get(type);
     }
 
-    public void setJaugeClerge(Jauge jaugeClerge) {
-        this.jaugeClerge = jaugeClerge;
-    }
-
-    public Jauge getJaugePeuple() {
-        return jaugePeuple;
-    }
-
-    public void setJaugePeuple(Jauge jaugePeuple) {
-        this.jaugePeuple = jaugePeuple;
-    }
-
-    public Jauge getJaugeArmee() {
-        return jaugeArmee;
-    }
-
-    public void setJaugeArmee(Jauge jaugeArmee) {
-        this.jaugeArmee = jaugeArmee;
-    }
-
-    public Jauge getJaugeFinance() {
-        return jaugeFinance;
-    }
-
-    public void setJaugeFinance(Jauge jaugeFinance) {
-        this.jaugeFinance = jaugeFinance;
+    public void setJauges(TypeJauge typeJauge, Jauge jauge) {
+        jauges.put(typeJauge, jauge);
     }
 
     /**
@@ -73,10 +53,9 @@ public class Personnage {
      */
 
     public void AfficheJauges() {
-        System.out.println(jaugeClerge);
-        System.out.println(jaugePeuple);
-        System.out.println(jaugeArmee);
-        System.out.println(jaugeFinance);
+        for (Map.Entry<TypeJauge, Jauge> jauge : jauges.entrySet()) {
+            System.out.println(jauge.getValue());
+        }
         System.out.println();
     }
 }
